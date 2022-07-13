@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Infinit scrolling</title>
+    <style>
+      img {
+        display: block;
+        width: 200px;
+        height: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- we will appending data here -->
+    </div>
+    <script>
+      const container = document.querySelector(".container");
+      let url = "http://api.adorable.io/avatars/";
+
+      function getRandomNum() {
+        return Math.floor(Math.random() * 100);
+      }
+      function loadImages(numImages = 10) {
+        let i = 0;
+        while (i < numImages) {
+          const img = document.createElement("img");
+          img.src = `${url}${getRandomNum()}`;
+          container.append(img);
+          i++;
+        }
+      }
+      loadImages();
+
+      window.addEventListener("scroll", () => {
+        if (
+          window.scrollY + window.innerHeight >=
+          document.documentElement.scrollHeight
+        ) {
+          loadImages();
+        }
+      });
+    </script>
+  </body>
+</html>
